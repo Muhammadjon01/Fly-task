@@ -43,6 +43,10 @@ function Todos() {
     setStatus("complete");
   };
 
+  const activeStatus = () => {
+    setStatus("active");
+  };
+
   return (
     <div className="bg-blue-700">
       <div className="w-[80%] h-screen sm:ml-20 bg-white-600">
@@ -65,14 +69,17 @@ function Todos() {
               Add
             </button>
           </div>
-          <div className="flex justify-between bg-white px-2 py-4">
+          <div className="flex justify-between bg-white text-white px-2 py-4">
             <button
               className="rounded-lg px-2 py-1 bg-blue-500 shadow-lg hover:shadow-blue-500/50"
               onClick={allStatus}
             >
               All
             </button>
-            <button className="rounded-lg px-2 py-1 bg-blue-500 shadow-lg hover:shadow-blue-500/50">
+            <button
+              className="rounded-lg px-2 py-1 bg-blue-500 shadow-lg hover:shadow-blue-500/50"
+              onClick={activeStatus}
+            >
               Active
             </button>
             <button
@@ -82,7 +89,7 @@ function Todos() {
               Complete
             </button>
 
-            <input type="search" placeholder="Search..." className="rounded"/>
+            <input type="search" placeholder="Search..." className="rounded" />
           </div>
         </div>
 
@@ -106,6 +113,21 @@ function Todos() {
               todos.length > 0 &&
               todos
                 .filter((elem) => elem.isCompleted)
+                .map((elem) => {
+                  return (
+                    <Todo
+                      key={elem.id}
+                      text={elem.text}
+                      isCompleted={elem.isCompleted}
+                      deleteTodo={() => deleteTodo(elem.id)}
+                      completeTodo={() => completeTodo(elem.id)}
+                    />
+                  );
+                })}
+            {status === "active" &&
+              todos.length > 0 &&
+              todos
+                .filter((elem) => !elem.isCompleted)
                 .map((elem) => {
                   return (
                     <Todo
