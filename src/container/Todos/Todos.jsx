@@ -145,7 +145,7 @@ function Todos() {
               type="search"
               name="search"
               placeholder="Search..."
-              className="w-full rounded text-black"
+              className="w-[50%] lg:w-[30%] rounded text-black"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
