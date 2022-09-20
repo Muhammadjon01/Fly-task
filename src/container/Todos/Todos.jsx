@@ -1,6 +1,6 @@
 import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Modal } from "antd";
 import Todo from "../../components/Todo/Todo";
 
 function Todos() {
@@ -8,6 +8,9 @@ function Todos() {
   const [todos, setTodos] = useState([]);
   const [status, setStatus] = useState("all");
   const [search, setSearch] = useState("");
+  const [editText, setEditText] = useState("");
+  const [idx, setIdx] = useState(null);
+  const [editModal, setEditModal] = useState(false);
 
   const handleChange = (e) => {
     const { value } = e.target;
@@ -37,6 +40,25 @@ function Todos() {
     setTodos(updateTodo);
   };
 
+  const editTodoOpen = (id) => {
+    setIdx(id);
+    setEditText(todos.find((elem) => elem.id === id).text);
+    setEditModal(true);
+  };
+
+  const editTodo = () => {
+    setTodos((prev) => [
+      ...prev.map((elem) => {
+        if (elem.id === idx) {
+          elem.text = editText;
+          return elem;
+        }
+        return elem;
+      }),
+    ]);
+    setEditModal(false);
+  };
+
   const allStatus = () => {
     setStatus("all");
   };
@@ -60,7 +82,7 @@ function Todos() {
           </h1>
           <div className="flex justify-between">
             <input
-              className="w-[500px] rounded"
+              className="w-full rounded"
               type="text"
               value={text}
               onChange={handleChange}
@@ -73,36 +95,50 @@ function Todos() {
               Add
             </button>
           </div>
-          <div className="flex justify-between bg-white text-white px-2 py-4">
-            <button
-              className="rounded-lg px-2 py-1 bg-blue-500 shadow-lg hover:shadow-blue-500/50"
-              onClick={allStatus}
-            >
-              All
-            </button>
-            <button
-              className="rounded-lg px-2 py-1 bg-blue-500 shadow-lg hover:shadow-blue-500/50"
-              onClick={activeStatus}
-            >
-              Active
-            </button>
-            <button
-              className="rounded-lg px-2 py-1 bg-blue-500 shadow-lg hover:shadow-blue-500/50"
-              onClick={completeStatus}
-            >
-              Complete
-            </button>
+          <div className="flex justify-between space-x-4 bg-white text-white px-2 py-4">
+            <div className="flex  space-x-2">
+              <button
+                className="rounded-lg px-2 py-1 bg-blue-500 shadow-lg hover:shadow-blue-500/50"
+                onClick={allStatus}
+              >
+                All
+              </button>
+              <button
+                className="rounded-lg px-2 py-1 bg-blue-500 shadow-lg hover:shadow-blue-500/50"
+                onClick={activeStatus}
+              >
+                Active
+              </button>
+              <button
+                className="rounded-lg px-2 py-1 bg-blue-500 shadow-lg hover:shadow-blue-500/50"
+                onClick={completeStatus}
+              >
+                Complete
+              </button>
+            </div>
 
             <input
               type="search"
               name="search"
               placeholder="Search..."
-              className="rounded text-black"
+              className="w-full rounded text-black"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
         </div>
+        <Modal
+          title="Edit To Do"
+          open={editModal}
+          onOk={editTodo}
+          onCancel={() => setEditModal(false)}
+        >
+          <input
+            type="text"
+            value={editText}
+            onChange={(e) => setEditText(e.target.value)}
+          />
+        </Modal>
 
         <div className="lg:w-[50%]  bg-white rounded mx-auto py-10">
           <div className="bg-white space-y-2 md:mx-auto mx-auto my-4 px-4">
@@ -117,6 +153,7 @@ function Todos() {
                     isCompleted={elem.isCompleted}
                     deleteTodo={() => deleteTodo(elem.id)}
                     completeTodo={() => completeTodo(elem.id)}
+                    editTodoOpen={() => editTodoOpen(elem.id)}
                   />
                 );
               })}
@@ -133,6 +170,7 @@ function Todos() {
                       isCompleted={elem.isCompleted}
                       deleteTodo={() => deleteTodo(elem.id)}
                       completeTodo={() => completeTodo(elem.id)}
+                      editTodoOpen={() => editTodoOpen(elem.id)}
                     />
                   );
                 })}
@@ -148,6 +186,7 @@ function Todos() {
                       isCompleted={elem.isCompleted}
                       deleteTodo={() => deleteTodo(elem.id)}
                       completeTodo={() => completeTodo(elem.id)}
+                      editTodoOpen={() => editTodoOpen(elem.id)}
                     />
                   );
                 })}
@@ -166,6 +205,7 @@ function Todos() {
                       isCompleted={elem.isCompleted}
                       deleteTodo={() => deleteTodo(elem.id)}
                       completeTodo={() => completeTodo(elem.id)}
+                      editTodoOpen={() => editTodoOpen(elem.id)}
                     />
                   );
                 })}

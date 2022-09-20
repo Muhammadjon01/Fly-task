@@ -1,7 +1,7 @@
 import React from "react";
 
 function Todo(props) {
-  const { text, deleteTodo, completeTodo, isCompleted } = props;
+  const { text, deleteTodo, completeTodo, isCompleted, editTodoOpen } = props;
   return (
     <div className="w-full flex flex-col bg-[#cecece] rounded">
       <div className="text-start flex flex-wrap justify-between px-3">
@@ -22,6 +22,12 @@ function Todo(props) {
             onClick={deleteTodo}
           >
             Delete
+          </button>
+          <button
+            className="rounded-lg px-2 py-1 bg-blue-500 shadow-lg hover:shadow-blue-500/50"
+            onClick={editTodoOpen}
+          >
+            Edit
           </button>
         </div>
       </div>
