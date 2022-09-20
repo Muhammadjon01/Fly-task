@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import Todo from "../../components/Todo/Todo";
 
@@ -6,6 +7,7 @@ function Todos() {
   const [text, setText] = useState("");
   const [todos, setTodos] = useState([]);
   const [status, setStatus] = useState("all");
+  const [search, setSearch] = useState("");
 
   const handleChange = (e) => {
     const { value } = e.target;
@@ -46,6 +48,8 @@ function Todos() {
   const activeStatus = () => {
     setStatus("active");
   };
+
+  useEffect(() => {}, [search]);
 
   return (
     <div className="bg-blue-700">
@@ -89,13 +93,21 @@ function Todos() {
               Complete
             </button>
 
-            <input type="search" placeholder="Search..." className="rounded" />
+            <input
+              type="search"
+              name="search"
+              placeholder="Search..."
+              className="rounded text-black"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
           </div>
         </div>
 
         <div className="lg:w-[50%]  bg-white rounded mx-auto py-10">
           <div className="bg-white space-y-2 md:mx-auto mx-auto my-4 px-4">
-            {status === "all" &&
+            {search === "" &&
+              status === "all" &&
               todos.length > 0 &&
               todos.map((elem) => {
                 return (
@@ -128,6 +140,24 @@ function Todos() {
               todos.length > 0 &&
               todos
                 .filter((elem) => !elem.isCompleted)
+                .map((elem) => {
+                  return (
+                    <Todo
+                      key={elem.id}
+                      text={elem.text}
+                      isCompleted={elem.isCompleted}
+                      deleteTodo={() => deleteTodo(elem.id)}
+                      completeTodo={() => completeTodo(elem.id)}
+                    />
+                  );
+                })}
+
+            {search.length > 0 &&
+              todos.length > 0 &&
+              todos
+                .filter((elem) =>
+                  elem.text.toLowerCase().includes(search.toLowerCase())
+                )
                 .map((elem) => {
                   return (
                     <Todo
