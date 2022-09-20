@@ -40,6 +40,22 @@ function Todos() {
     setTodos(updateTodo);
   };
 
+  const sortTodos = () => {
+    const sort = todos.sort(function (a, b) {
+      const nameA = a.text.toUpperCase();
+      const nameB = b.text.toUpperCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      return 0;
+    });
+    setTodos(sort);
+  };
+
   const editTodoOpen = (id) => {
     setIdx(id);
     setEditText(todos.find((elem) => elem.id === id).text);
@@ -58,6 +74,8 @@ function Todos() {
     ]);
     setEditModal(false);
   };
+
+  
 
   const allStatus = () => {
     setStatus("all");
@@ -114,6 +132,12 @@ function Todos() {
                 onClick={completeStatus}
               >
                 Complete
+              </button>
+              <button
+                className="rounded-lg px-2 py-1 bg-blue-500 shadow-lg hover:shadow-blue-500/50"
+                onClick={sortTodos}
+              >
+                Sort
               </button>
             </div>
 
