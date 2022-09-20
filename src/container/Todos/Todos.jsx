@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "flowbite-react";
 import { useState } from "react";
 import Todo from "../../components/Todo/Todo";
 
@@ -21,6 +20,18 @@ function Todos() {
   const deleteTodo = (id) => {
     let filterTodos = todos.filter((elem) => elem.id !== id);
     setTodos(filterTodos);
+  };
+
+  const completeTodo = (id) => {
+    let updateTodo = todos.map((elem) => {
+      if (elem.id == id) {
+        elem.isCompleted = !elem.isCompleted;
+        return elem;
+      }
+      return elem;
+    });
+
+    setTodos(updateTodo);
   };
 
   return (
@@ -55,7 +66,9 @@ function Todos() {
                   <Todo
                     key={elem.id}
                     text={elem.text}
+                    isCompleted={elem.isCompleted}
                     deleteTodo={() => deleteTodo(elem.id)}
+                    completeTodo={() => completeTodo(elem.id)}
                   />
                 );
               })}
