@@ -1,33 +1,29 @@
 import React from "react";
+import { AiFillEdit } from "react-icons/ai";
+import { MdDelete, MdDoneOutline } from "react-icons/md";
 
 function Todo(props) {
   const { text, deleteTodo, completeTodo, isCompleted, editTodoOpen } = props;
   return (
     <div className="w-full flex flex-col bg-[#cecece] rounded">
-      <div className="text-start flex flex-wrap justify-between px-3">
-        <ul className="my-4">
+      <div className="w-full text-start flex flex-wrap justify-between px-3">
+        <ul className="my-4 lg:w-[150px]">
           <li style={isCompleted ? { textDecoration: "line-through" } : {}}>
             {text}
           </li>
         </ul>
         <div className="space-x-2 mt-4 items-end text-white">
           <button
-            className="rounded-lg px-2 py-1 bg-green-500 shadow-lg hover:shadow-green-500/50"
+            className=" text-green-500"
             onClick={completeTodo}
           >
-            Complete
+            <MdDoneOutline size={30} />
           </button>
-          <button
-            className="rounded-lg px-2 py-1 bg-blue-500 shadow-lg hover:shadow-blue-500/50"
-            onClick={deleteTodo}
-          >
-            Delete
+          <button className="text-blue-500" onClick={editTodoOpen}>
+            <AiFillEdit size={30} />
           </button>
-          <button
-            className="rounded-lg px-2 py-1 bg-blue-500 shadow-lg hover:shadow-blue-500/50"
-            onClick={editTodoOpen}
-          >
-            Edit
+          <button className="text-orange-500 rounded-1" onClick={deleteTodo}>
+            <MdDelete size={30} />
           </button>
         </div>
       </div>

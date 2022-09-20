@@ -41,7 +41,7 @@ function Todos() {
   };
 
   const sortTodos = () => {
-    const sort = todos.sort(function (a, b) {
+    todos.sort(function (a, b) {
       const nameA = a.text.toUpperCase();
       const nameB = b.text.toUpperCase();
       if (nameA < nameB) {
@@ -53,7 +53,7 @@ function Todos() {
 
       return 0;
     });
-    setTodos(sort);
+    setTodos(todos)
   };
 
   const editTodoOpen = (id) => {
@@ -75,8 +75,6 @@ function Todos() {
     setEditModal(false);
   };
 
-  
-
   const allStatus = () => {
     setStatus("all");
   };
@@ -92,8 +90,8 @@ function Todos() {
   useEffect(() => {}, [search]);
 
   return (
-    <div className="bg-blue-700">
-      <div className="w-[80%] h-screen sm:ml-20 bg-white-600">
+    <div className="w-full h-screen bg-gradient-to-r from-green-400 to-blue-500">
+      <div className="w-[80%] h-screen bg-white-600  m-auto">
         <div className="lg:w-[50%] ms:m-auto mx-auto">
           <h1 className="text-4xl font-bold py-10 text-center text-white">
             To Do List
