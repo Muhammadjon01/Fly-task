@@ -1,18 +1,24 @@
 import React from "react";
 
 function Todo(props) {
-  const { text } = props;
+  const { text, deleteTodo } = props;
   return (
     <div className="w-full flex flex-col bg-[#cecece] rounded">
-      <div className="text-start flex flex-row justify-between px-3">
+      <div className="text-start flex flex-wrap justify-between px-3">
         <ul className="my-4">
           <li>{text}</li>
-          
         </ul>
-        <div className="space-x-2 mt-4 items-end">
-            <button className="rounded p-1 bg-green-500">Complite</button>
-            <button className="rounded p-1 bg-red-800">Delete</button>
-          </div>
+        <div className="space-x-2 mt-4 items-end text-white">
+          <button className="rounded-lg px-2 py-1 bg-green-500 shadow-lg hover:shadow-green-500/50">
+            Complete
+          </button>
+          <button
+            className="rounded-lg px-2 py-1 bg-blue-500 shadow-lg hover:shadow-blue-500/50"
+            onClick={deleteTodo}
+          >
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   );
