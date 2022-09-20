@@ -5,9 +5,9 @@ import { MdDelete, MdDoneOutline } from "react-icons/md";
 function Todo(props) {
   const { text, deleteTodo, completeTodo, isCompleted, editTodoOpen } = props;
   return (
-    <div className="w-full flex flex-col bg-[#cecece] rounded">
-      <div className="w-full text-start flex flex-wrap justify-between px-3">
-        <ul className="my-4 lg:w-[150px]">
+    <div className="w-full flex flex-col rounded">
+      <div className="w-full text-start flex flex-wrap justify-between border-b-2">
+        <ul className="pt-4">
           <li style={isCompleted ? { textDecoration: "line-through" } : {}}>
             {text}
           </li>

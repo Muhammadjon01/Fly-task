@@ -53,7 +53,7 @@ function Todos() {
 
       return 0;
     });
-    setTodos(todos)
+    setTodos(todos);
   };
 
   const editTodoOpen = (id) => {
@@ -111,34 +111,35 @@ function Todos() {
               Add
             </button>
           </div>
-          <div className="flex justify-between space-x-4 bg-white text-white px-2 py-4">
+          <div className="flex justify-between space-x-4 bg-white text-black px-2 py-4 border-b-2">
             <div className="flex  space-x-2">
               <button
-                className="rounded-lg px-2 py-1 bg-blue-500 shadow-lg hover:shadow-blue-500/50"
+                className="rounded-lg px-2 py-1  hover:bg-gray-500/50"
                 onClick={allStatus}
               >
                 All
               </button>
               <button
-                className="rounded-lg px-2 py-1 bg-blue-500 shadow-lg hover:shadow-blue-500/50"
+                className="rounded px-2 py-2   hover:bg-gray-500/50"
                 onClick={activeStatus}
               >
                 Active
               </button>
               <button
-                className="rounded-lg px-2 py-1 bg-blue-500 shadow-lg hover:shadow-blue-500/50"
+                className="rounded px-2 py-1   hover:bg-gray-500/50"
                 onClick={completeStatus}
               >
                 Complete
               </button>
               <button
-                className="rounded-lg px-2 py-1 bg-blue-500 shadow-lg hover:shadow-blue-500/50"
+                className="rounded px-3 py-1   hover:bg-gray-500/50"
                 onClick={sortTodos}
               >
                 Sort
               </button>
             </div>
 
+           
             <input
               type="search"
               name="search"
@@ -162,8 +163,9 @@ function Todos() {
           />
         </Modal>
 
-        <div className="lg:w-[50%]  bg-white rounded mx-auto py-10">
+        <div className="lg:w-[50%]  bg-white rounded mx-auto py-5">
           <div className="bg-white space-y-2 md:mx-auto mx-auto my-4 px-4">
+            <h1 className="text-4xl font-bold border-b-2">Your Tasks</h1>
             {search === "" &&
               status === "all" &&
               todos.length > 0 &&
